@@ -143,13 +143,13 @@
       <Project>{cb50d1d9-55e4-4a2b-8ec7-0adde8d7e3bd}</Project>
       <Name>LibMarkupLanguage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibNSharpDoc.Generator\LibNSharpDoc.Processor.csproj">
-      <Project>{f8a09b5b-83a1-4c35-b965-8468399f4523}</Project>
-      <Name>LibNSharpDoc.Processor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj">
       <Project>{6f2cfe6b-15a6-48d1-8663-a1248241676f}</Project>
       <Name>LibNSharpDoc.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj">
+      <Project>{f8a09b5b-83a1-4c35-b965-8468399f4523}</Project>
+      <Name>LibNSharpDoc.Processor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

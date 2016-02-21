@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSharpDoc", "NSharpDoc\NSha
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Roslyn", "Roslyn", "{782E1C2C-DD48-4453-9939-4C95CA235BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibNSharpDoc.Processor", "LibNSharpDoc.Generator\LibNSharpDoc.Processor.csproj", "{F8A09B5B-83A1-4C35-B965-8468399F4523}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibNSharpDoc.Processor", "LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj", "{F8A09B5B-83A1-4C35-B965-8468399F4523}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibNSharpDoc.Models", "LibNSharpDoc.Models\LibNSharpDoc.Models.csproj", "{6F2CFE6B-15A6-48D1-8663-A1248241676F}"
 EndProject
