@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bau.Libraries.LibRoslynManager.Models.Solutions
+namespace Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions
 {
 	/// <summary>
 	///		Colección de <see cref="FileVisualStudioModel"/>

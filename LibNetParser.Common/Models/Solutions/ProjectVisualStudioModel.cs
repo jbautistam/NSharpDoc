@@ -4,7 +4,7 @@ using System.IO;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibMarkupLanguage;
 
-namespace Bau.Libraries.LibRoslynManager.Models.Solutions
+namespace Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions
 {
 	/// <summary>
 	///		Clase con los datos de un proyecto

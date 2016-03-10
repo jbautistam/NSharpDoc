@@ -18,6 +18,7 @@ namespace Bau.Libraries.LibSourceCode.Documenter.Common
 		{ StructDocumentationModel objStruct = new StructDocumentationModel(null, StructDocumentationModel.ScopeType.Global,
 																																				System.IO.Path.GetFileNameWithoutExtension(objProgram.FileName),
 																																				"Program", 0);
+
 				// Añade las estructuras de documentación
 					objStruct.Childs.AddRange(Generate(objProgram));
 				// Devuelve las estructuras de documentación

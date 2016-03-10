@@ -103,6 +103,16 @@ namespace Bau.Applications.NSharpDoc.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NewItem {
+            get {
+                object obj = ResourceManager.GetObject("NewItem", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap world_go {
             get {
                 object obj = ResourceManager.GetObject("world_go", resourceCulture);

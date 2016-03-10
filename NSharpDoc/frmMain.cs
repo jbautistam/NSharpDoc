@@ -40,6 +40,8 @@ namespace Bau.Applications.NSharpDoc
 		private void Clear(bool blnLoadLast)
 		{ // Crea un nuevo objeto de proyecto
 				objProject = new ProjectDocumentationModel();
+			// Inicializa los directorios
+				pthTarget.PathName = "";
 			// Inicializa la lista de proveedores
 				InitListProviders();
 			// Carga el objeto de proyecto si es necesario
@@ -273,15 +275,16 @@ namespace Bau.Applications.NSharpDoc
 		{ OpenFileProject();
 		}
 
+		private void cmdNew_Click(Object sender, EventArgs e)
+		{ Clear(false);
+		}
+
 		private void cmdSave_Click(Object sender, EventArgs e)
 		{ Save();
 		}
 
 		private void cmdClear_Click(object sender, EventArgs e)
-		{ if (tabControl1.TabIndex == 0)
-				Clear(false);
-			else
-				txtLog.Text = "";
+		{ txtLog.Text = "";
 		}
 
 		private void lswProviders_OnUpdateRecord(object objSender, string strKey)

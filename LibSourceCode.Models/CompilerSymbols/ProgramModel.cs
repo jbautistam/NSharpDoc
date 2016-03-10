@@ -34,5 +34,10 @@ namespace Bau.Libraries.LibSourceCode.Models.CompilerSymbols
 		///		Elementos de la aplicación
 		/// </summary>
 		public List<CompilationUnitModel> CompilationUnits { get; } = new List<CompilationUnitModel>();
+
+		/// <summary>
+		///		Errores
+		/// </summary>
+		public List<string> Errors { get; } = new List<string>();
 	}
 }

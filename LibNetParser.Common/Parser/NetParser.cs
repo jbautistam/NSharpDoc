@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibSourceCode.Models.CompilerSymbols;
@@ -13,31 +11,24 @@ using Bau.Libraries.LibSourceCode.Models.CompilerSymbols.Methods;
 using Bau.Libraries.LibSourceCode.Models.CompilerSymbols.Simple;
 using Bau.Libraries.LibSourceCode.Models.CompilerSymbols.Structs;
 
-namespace Bau.Libraries.LibRoslynManager.Parser
+namespace Bau.Libraries.LibNetParser.Common.Parser
 {
 	/// <summary>
-	///		Parser de código fuente utilizando Roslyn
+	///		Parser de código fuente en C# utilizando Roslyn
 	/// </summary>
-	internal class FileParser
-	{	// Variables privadas
-			private SemanticModel objTreeSemantic;
-
+	public abstract class NetParser
+	{	
 		/// <summary>
 		///		Interpreta un archivo
 		/// </summary>
-		internal CompilationUnitModel ParseFile(string strFileName)
+		public CompilationUnitModel ParseFile(string strFileName)
 		{ CompilationUnitModel objUnit = new CompilationUnitModel(strFileName);
 
 				// Interpreta el archivo
 					if (!System.IO.File.Exists(strFileName))
 						objUnit.Root.Error = "No se encuentra el archivo " + strFileName;
 					else
-						try
-							{ ParseText(objUnit, LibHelper.Files.HelperFiles.LoadTextFile(strFileName));
-							}
-						catch (Exception objException)
-							{ objUnit.Root.Error = "Error al interpretar " + strFileName + ". " + objException.Message;
-							}
+						objUnit = ParseText(strFileName, LibHelper.Files.HelperFiles.LoadTextFile(strFileName));
 				// Devuelve la unidad de compilación
 					return objUnit;
 		}
@@ -45,43 +36,12 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta un texto
 		/// </summary>
-		internal CompilationUnitModel ParseText(string strText)
-		{ CompilationUnitModel objUnit = new CompilationUnitModel("PlainText");
-
-				// Interpreta el texto
-					ParseText(objUnit, strText);
-				// Devuelve la unidad de compilación
-					return objUnit;
-		}
-
-		/// <summary>
-		///		Interpreta un texto
-		/// </summary>
-		private void ParseText(CompilationUnitModel objUnit, string strText)
-		{ CSharpCompilation objCompilation;
-
-				// Crea el modelo de compilación
-					objCompilation = CSharpCompilation.Create("ParserText").AddSyntaxTrees(CSharpSyntaxTree.ParseText(strText));
-				// Obtiene el árbol semántico
-					objTreeSemantic = objCompilation.GetSemanticModel(objCompilation.SyntaxTrees[0], true);
-				// Interpreta los nodos
-					ParseNodes(objUnit, objTreeSemantic.SyntaxTree.GetRoot());
-		}
-
-		/// <summary>
-		///		Interpreta la unidad de compilación
-		/// </summary>
-		private void ParseNodes(CompilationUnitModel objUnit, SyntaxNode objRoot)
-		{ if (objRoot.Kind() == SyntaxKind.CompilationUnit)
-				ParseChilds(objRoot, objUnit.Root);
-			else
-				objUnit.Root.Error = "No se encuentra el nodo de unidad de compilación en el árbol sintáctico";
-		}
+		protected abstract CompilationUnitModel ParseText(string strFileName, string strText);
 
 		/// <summary>
 		///		Interpreta los hijos de un nodo
 		/// </summary>
-		private void ParseChilds(SyntaxNode objRoot, LanguageStructModel objParent)
+		protected virtual void ParseChilds(SyntaxNode objRoot, LanguageStructModel objParent)
 		{ foreach (SyntaxNode objNode in objRoot.ChildNodes())
 				ParseNode(objNode, objParent);
 		}
@@ -89,66 +49,29 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta los datos de un nodo
 		/// </summary>
-		private void ParseNode(SyntaxNode objNode, LanguageStructModel objParent)
-		{ switch (objNode.Kind())
-				{	case SyntaxKind.UsingDirective:
-							ParseUsing(objNode, objParent);
-						break;
-					case SyntaxKind.NamespaceDeclaration:
-							ParseNameSpace(objNode, objParent);
-						break;
-					case SyntaxKind.ClassDeclaration:
-							ParseClass(objNode, objParent);
-						break;
-					case SyntaxKind.ConstructorDeclaration:
-							ParseConstructor(objNode, objParent);
-						break;
-					case SyntaxKind.MethodDeclaration:
-							ParseMethod(objNode, objParent);
-						break;
-					case SyntaxKind.PropertyDeclaration:
-							ParseProperty(objNode, objParent);
-						break;
-					case SyntaxKind.EnumDeclaration:
-							ParseEnum(objNode, objParent);
-						break;
-					case SyntaxKind.EnumMemberDeclaration:
-							ParseEnumMember(objNode, objParent);
-						break;
-					case SyntaxKind.StructDeclaration:	
-							ParseStruct(objNode, objParent);
-						break;
-					case SyntaxKind.InterfaceDeclaration:
-							ParseInterface(objNode, objParent);
-						break;
-				}
-		}
+		protected abstract void ParseNode(SyntaxNode objNode, LanguageStructModel objParent);
 
 		/// <summary>
 		///		Interpreta una cláusula using
 		/// </summary>
-		private void ParseUsing(SyntaxNode objNode, LanguageStructModel objParent)
-		{ UsingDirectiveSyntax objUsing = objNode as UsingDirectiveSyntax;
+		protected void AddUsing(SyntaxNode objNode, LanguageStructModel objParent, string strUsingFullName)
+		{ if (!strUsingFullName.IsEmpty())
+				{ LanguageStructModel objCompilationUnit = objParent;
 
-				// Añade el nombre a la lista de cadenas "Using"
-					if (objUsing != null)
-						{ LanguageStructModel objCompilationUnit = objParent;
-
-								// Busca la unidad de compilación a la que está asociada este elemento
-									while (objCompilationUnit != null && objCompilationUnit.IDType != LanguageStructModel.StructType.CompilationUnit &&
-												 objCompilationUnit.Parent != null)
-										objCompilationUnit = objCompilationUnit.Parent;
-								// Añade la cláusula using
-									objCompilationUnit?.CompilationUnit.UsingClauses.Add(objUsing.Name.ToFullString());
-						}
+						// Busca la unidad de compilación a la que está asociada este elemento
+							while (objCompilationUnit != null && objCompilationUnit.IDType != LanguageStructModel.StructType.CompilationUnit &&
+											objCompilationUnit.Parent != null)
+								objCompilationUnit = objCompilationUnit.Parent;
+						// Añade la cláusula using
+							objCompilationUnit?.CompilationUnit.UsingClauses.Add(strUsingFullName);
+				}
 		}
 
 		/// <summary>
 		///		Interpreta un espacio de nombres
 		/// </summary>
-		private void ParseNameSpace(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseNameSpace(SyntaxNode objNode, LanguageStructModel objParent, INamespaceSymbol objSymbol)
 		{ NameSpaceModel objNameSpace = objParent.Items.CreateSpaceModel(objParent);
-			INamespaceSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as NamespaceDeclarationSyntax);
 
 				// Obtiene los datos del espacio de nombres
 					if (objSymbol != null)
@@ -163,9 +86,8 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta una clase
 		/// </summary>
-		private void ParseClass(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseClass(SyntaxNode objNode, LanguageStructModel objParent, INamedTypeSymbol objSymbol)
 		{	ClassModel objClass = objParent.Items.CreateClass(objParent);
-			INamedTypeSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as ClassDeclarationSyntax);
 
 				// Obtiene las propiedades de la clase
 					objClass.IsStatic = objSymbol.IsStatic;
@@ -178,9 +100,8 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta un interface
 		/// </summary>
-		private void ParseInterface(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseInterface(SyntaxNode objNode, LanguageStructModel objParent, INamedTypeSymbol objSymbol)
 		{ InterfaceModel objInterface = objParent.Items.CreateInterface(objParent);
-			INamedTypeSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as InterfaceDeclarationSyntax);
 
 				// Asigna las propiedades básicas
 					ParseNamedTypeSymbol(objInterface, objNode, objSymbol);
@@ -189,9 +110,8 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta los datos de una estructura
 		/// </summary>
-		private void ParseStruct(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseStruct(SyntaxNode objNode, LanguageStructModel objParent, INamedTypeSymbol objSymbol)
 		{ StructModel objStruct = objParent.Items.CreateStruct(objParent);
-			INamedTypeSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as StructDeclarationSyntax);
 
 				// Inicializa los elementos
 					ParseNamedTypeSymbol(objStruct, objNode, objSymbol);
@@ -218,19 +138,20 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta un método
 		/// </summary>
-		private void ParseMethod(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseMethod(SyntaxNode objNode, LanguageStructModel objParent, IMethodSymbol objSymbol)
 		{	MethodModel objMethod = objParent.Items.CreateMethod(objParent);			
 
 				// Interpreta el método
-					ParseMethod(objNode, objMethod, objTreeSemantic.GetDeclaredSymbol(objNode as MethodDeclarationSyntax));
+					ParseMethod(objNode, objMethod, objSymbol);
+				// Asigna los elementos hijo (atributos)
+					ParseChilds(objNode, objMethod);
 		}
 
 		/// <summary>
 		///		Interpreta un constructor
 		/// </summary>
-		private void ParseConstructor(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseConstructor(SyntaxNode objNode, LanguageStructModel objParent, IMethodSymbol objSymbol)
 		{ ConstructorModel objConstructor = objParent.Items.CreateConstructor(objParent);
-			IMethodSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as ConstructorDeclarationSyntax);
 
 				// Obtiene los datos básicos
 					InitStructModel(objConstructor, objSymbol, objNode);
@@ -241,14 +162,15 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 					objConstructor.IsStatic = objSymbol.IsStatic;
 				// Asigna los argumentos
 					objConstructor.Arguments.AddRange(ParseArguments(objSymbol.Parameters));
+				// Asigna los elementos hijo (atributos)
+					ParseChilds(objNode, objConstructor);
 		}
 
 		/// <summary>
 		///		Interpreta una propiedad
 		/// </summary>
-		private void ParseProperty(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseProperty(SyntaxNode objNode, LanguageStructModel objParent, IPropertySymbol objSymbol)
 		{ PropertyModel objProperty = objParent.Items.CreateProperty(objParent);
-			IPropertySymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as PropertyDeclarationSyntax);
 
 				// Obtiene los datos de la propiedad
 					InitStructModel(objProperty, objSymbol, objNode);
@@ -274,6 +196,8 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 					objProperty.IsWriteOnly = objSymbol.IsWriteOnly;
 				// Interpreta los argumentos
 					objProperty.Arguments.AddRange(ParseArguments(objSymbol.Parameters));
+				// Asigna los elementos hijo (atributos)
+					ParseChilds(objNode, objProperty);
 		}
 
 		/// <summary>
@@ -373,9 +297,8 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta un enumerado
 		/// </summary>
-		private void ParseEnum(SyntaxNode objRoot, LanguageStructModel objParent)
+		protected void ParseEnum(SyntaxNode objRoot, LanguageStructModel objParent, INamedTypeSymbol objSymbol)
 		{ EnumModel objEnum = objParent.Items.CreateEnum(objParent);
-			INamedTypeSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objRoot as EnumDeclarationSyntax);
 
 				// Inicializa los elementos
 					InitStructModel(objEnum, objSymbol, objRoot);
@@ -388,12 +311,47 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 		/// <summary>
 		///		Interpreta un miembro de un enumerado
 		/// </summary>
-		private void ParseEnumMember(SyntaxNode objNode, LanguageStructModel objParent)
+		protected void ParseEnumMember(SyntaxNode objNode, LanguageStructModel objParent, IFieldSymbol objSymbol)
 		{ EnumMemberModel objMember = objParent.Items.CreateEnumMember(objParent);
-			IFieldSymbol objSymbol = objTreeSemantic.GetDeclaredSymbol(objNode as EnumMemberDeclarationSyntax);
 
 				// Inicializa los elementos
 					InitStructModel(objMember, objSymbol, objNode);
+		}
+
+		/// <summary>
+		///		Interpreta una lista de atributos
+		/// </summary>
+		protected void ParseAttributeList(SyntaxNode objNode, LanguageStructModel objParent, string strAttributeFullContent)
+		{ if (!strAttributeFullContent.IsEmpty())
+				{ string [] arrStrAttributes = strAttributeFullContent.Split('\r');
+					
+						if (arrStrAttributes.Length > 0)
+							foreach (string strAttribute in arrStrAttributes)
+								if (!strAttribute.IsEmpty())
+									{ string strArguments;
+										string strName = strAttribute.Cut("(", out strArguments);
+										bool blnFound = false;
+
+											// Quita el paréntesis de cierre
+												strArguments = strArguments.TrimIgnoreNull();
+												while (!strArguments.IsEmpty() && strArguments.EndsWith(")") && !blnFound)
+													{ strArguments = strArguments.Left(strArguments.Length - 1);
+														blnFound = true;
+													}
+											// Añade los argumentos a los atributos del padre
+												blnFound = false;
+												foreach (AttributeModel objAttribute in objParent.Attributes)
+													if (objAttribute.Name.EqualsIgnoreCase(strName))
+														{ // Añade la cadena con los argumentos
+																objAttribute.Arguments = objAttribute.Arguments.AddWithSeparator(strArguments, ";");
+															// Indica que se ha encontrado el atributo
+																blnFound = true;
+														}
+											// Si no lo ha encontrado, lo añade
+												if (!blnFound)
+													objParent.Attributes.Add(new AttributeModel { Name = strName, Arguments = strArguments });
+									}
+				}
 		}
 
 		/// <summary>
@@ -453,9 +411,50 @@ namespace Bau.Libraries.LibRoslynManager.Parser
 				{ // Obtiene el nombre y los comentarios
 						objStructItem.Name = objSymbol.Name;
 						objStructItem.RemarksXml.RawXml = objSymbol.GetDocumentationCommentXml();
+					// Añade los contenedores
+						if (objSymbol.ContainingAssembly != null)
+							objStructItem.Assembly = objSymbol.ContainingAssembly.Name;
 					// Obtiene los modificadores
 						objStructItem.Modifier = ConvertAccesibility(objSymbol.DeclaredAccessibility);
+					// Añade los atributos
+						foreach (AttributeData objAttribute in objSymbol.GetAttributes())
+							objStructItem.Attributes.Add(GetAttribute(objAttribute));
 				}
+		}
+
+		/// <summary>
+		///		Obtiene los datos de un atributo
+		/// </summary>
+		private AttributeModel GetAttribute(AttributeData objSymbol)
+		{ AttributeModel objAttribute = new AttributeModel();
+
+				// Asigna los datos del atributo
+					objAttribute.Name = objSymbol.AttributeClass.Name;
+					objAttribute.ClassReferenced = objSymbol.AttributeClass.Name;
+					objAttribute.NameSpaceReferenced = GetFullNameNameSpace(objSymbol.AttributeClass);
+				// Añade los argumentos
+					foreach (TypedConstant objTypeData in objSymbol.ConstructorArguments)
+						{ System.Diagnostics.Debug.WriteLine(objTypeData.Type.Name, objTypeData.Value);
+						}
+					foreach (KeyValuePair<string, TypedConstant> objArgument in objSymbol.NamedArguments)
+						switch (objArgument.Value.Kind)
+							{	case TypedConstantKind.Array:
+									break;
+								case TypedConstantKind.Enum:
+									break;
+								case TypedConstantKind.Error:
+									break;
+								case TypedConstantKind.Primitive:
+									break;
+								case TypedConstantKind.Type:
+										if (objArgument.Value.IsNull)
+											objAttribute.Arguments = "null";
+										else
+											objAttribute.Arguments = objAttribute.Arguments.AddWithSeparator(objArgument.Value.Value.ToString(), " ");
+									break;
+							}
+				// Devuelve el atributo
+					return objAttribute;
 		}
 
 		/// <summary>

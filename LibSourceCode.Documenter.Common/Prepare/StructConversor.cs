@@ -373,25 +373,41 @@ namespace Bau.Libraries.LibSourceCode.Documenter.Common.Prepare
 		///		Obtiene el prototipo de una estructura
 		/// </summary>
 		private StructParameterModel GetPrototype(LanguageStructModel objStruct)
-		{ string strPrototype = "";
+		{ string strPrototype = GetAttributesPrototype(objStruct);
 
 				// Obtiene los datos del prototipo
 					switch (objStruct.IDType)
 						{	case LanguageStructModel.StructType.Property:
-									strPrototype = GetPropertyPrototype(objStruct as PropertyModel);
+									strPrototype += GetPropertyPrototype(objStruct as PropertyModel);
 								break;
 							case LanguageStructModel.StructType.Constructor:
-									strPrototype = GetMethodPrototype(objStruct as ConstructorModel);
+									strPrototype += GetMethodPrototype(objStruct as ConstructorModel);
 								break;
 							case LanguageStructModel.StructType.Method:
 									MethodModel objMethod = objStruct as MethodModel;
 										
 										if (objMethod != null)
-											strPrototype = GetMethodPrototype(objMethod, objMethod.IsAsync, objMethod.ReturnType);
+											strPrototype += GetMethodPrototype(objMethod, objMethod.IsAsync, objMethod.ReturnType);
 								break;
 						}
 				// Devuelve el nodo
 					return new StructParameterModel("Prototype", strPrototype, null);
+		}
+
+		/// <summary>
+		///		Obtiene el prototipo de los atributos de una estructura
+		/// </summary>
+		private string GetAttributesPrototype(LanguageStructModel objStruct)
+		{ string strPrototype = "";
+
+				// Añade los atributos
+					foreach (AttributeModel objAttribute in objStruct.Attributes)
+						strPrototype = strPrototype.AddWithSeparator($"{objAttribute.Name}({objAttribute.Arguments})", ",");
+				// Añade los corchetes
+					if (!strPrototype.IsEmpty())
+						strPrototype = "[" + strPrototype + "]" + Environment.NewLine;
+				// Devuelve la cadena de prototipo
+					return strPrototype;
 		}
 
 		/// <summary>

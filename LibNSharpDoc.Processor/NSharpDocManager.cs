@@ -53,10 +53,16 @@ namespace Bau.Libraries.LibNSharpDoc.Processor
 						try
 							{ switch (objProvider.Type.TrimIgnoreNull().ToUpper())
 									{	case "C#":
-												objColStructs.Add(new LibRoslynManager.ProgramParser().Parse(objProvider.Parameters));
+												objColStructs.Add(new LibCSharpParser.ProgramParser().Parse(objProvider.Parameters));
+											break;
+										case "VISUALBASIC":
+												objColStructs.Add(new LibVisualBasicParser.ProgramParser().Parse(objProvider.Parameters));
 											break;
 										case "SQLSERVER":
 												objColStructs.Add(new LibSqlServer.Documenter.SchemaDocumenter().Parse(objProvider.Parameters));
+											break;
+										case "OLEDB":
+												objColStructs.Add(new LibOleDB.Documenter.SchemaDocumenter().Parse(objProvider.Parameters));
 											break;
 										case "XMLSTRUCTS":
 												objColStructs.Add(new LibXMLStructs.Documenter.XMLStructsDocumenter().Parse(objProvider.Parameters));

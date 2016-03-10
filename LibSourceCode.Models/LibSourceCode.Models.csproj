@@ -47,6 +47,7 @@
     <Compile Include="CompilerSymbols\Base\RemarksXml.cs" />
     <Compile Include="CompilerSymbols\Base\TypedModel.cs" />
     <Compile Include="CompilerSymbols\CompilationUnitModel.cs" />
+    <Compile Include="CompilerSymbols\Base\AttributeModel.cs" />
     <Compile Include="CompilerSymbols\Methods\BaseMethodModel.cs" />
     <Compile Include="CompilerSymbols\Methods\ConstructorModel.cs" />
     <Compile Include="CompilerSymbols\Methods\MethodModel.cs" />

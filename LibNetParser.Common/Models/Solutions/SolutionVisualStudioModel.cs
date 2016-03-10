@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Bau.Libraries.LibHelper.Extensors;
 using Bau.Libraries.LibHelper.Files;
 
-namespace Bau.Libraries.LibRoslynManager.Models.Solutions
+namespace Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions
 {
 	/// <summary>
 	///		Clase con los datos de una solución

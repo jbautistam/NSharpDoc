@@ -1,15 +1,15 @@
 ﻿using System;
 
 using Bau.Libraries.LibSourceCode.Models.CompilerSymbols;
-using Bau.Libraries.LibRoslynManager.Models.Solutions;
 using Bau.Libraries.LibNSharpDoc.Models.Structs;
+using Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions;
 
-namespace Bau.Libraries.LibRoslynManager
+namespace Bau.Libraries.LibNetParser.Common
 {
 	/// <summary>
-	///		Intérprete de un programa
+	///		Intérprete de programas
 	/// </summary>
-	public class ProgramParser : LibNSharpDoc.Models.Interfaces.IDocumenter
+	public abstract class AbstractProgramParser : LibNSharpDoc.Models.Interfaces.IDocumenter
 	{
 		/// <summary>
 		///		Interpreta un archivo
@@ -31,41 +31,29 @@ namespace Bau.Libraries.LibRoslynManager
 		///		Interpreta un programa o un archivo
 		/// </summary>
 		private ProgramModel ParseProgram(string strFileName)
-		{	if (strFileName.EndsWith(".sln", StringComparison.CurrentCultureIgnoreCase) ||
-					strFileName.EndsWith(".prj", StringComparison.CurrentCultureIgnoreCase))
-				return ParseSolution(strFileName);
-			else
-				return ParseText(LibHelper.Files.HelperFiles.LoadTextFile(strFileName));
-		}
-
-		/// <summary>
-		///		Interpreta una solución
-		/// </summary>
-		private ProgramModel ParseSolution(string strFileName)
 		{ SolutionVisualStudioModel objSolution = new SolutionVisualStudioModel(strFileName);
 			ProgramModel objProgram = new ProgramModel(strFileName);
-			Parser.FileParser objParser = new Parser.FileParser();
 
 				// Carga la solución
 					objSolution.Load();
 				// Interpreta los proyectos
 					foreach (ProjectVisualStudioModel objProject in objSolution.Projects)
 						foreach (FileVisualStudioModel objFile in objProject.Files)
-							objProgram.CompilationUnits.Add(objParser.ParseFile(objFile.FullFileName));
+							if (!System.IO.File.Exists(objFile.FullFileName))
+								objProgram.Errors.Add("No se encuentra el archivo " + objFile.FullFileName);
+							else
+								{ CompilationUnitModel objUnit = ParseFile(objFile.FullFileName);
+
+										if (objUnit != null)
+											objProgram.CompilationUnits.Add(objUnit);
+								}
 				// Devuelve el programa interpretado
 					return objProgram;
 		}
 
 		/// <summary>
-		///		Interpreta el contenido de un texto
+		///		Interpreta un archivo de texto
 		/// </summary>
-		private ProgramModel ParseText(string strText)
-		{ ProgramModel objProgram = new ProgramModel("SinNombreArchivo");
-				
-				// Interpreta el texto
-					objProgram.CompilationUnits.Add(new Parser.FileParser().ParseText(strText));
-				// Devuelve el programa
-					return objProgram;
-		}
+		protected abstract CompilationUnitModel ParseFile(string strFileName);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bau.Libraries.LibRoslynManager.Models.Solutions
+namespace Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions
 {
 	/// <summary>
 	///		Archivo asociado a un proyecto

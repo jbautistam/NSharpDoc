@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 using Bau.Libraries.LibHelper.Extensors;
@@ -36,7 +34,11 @@ namespace Bau.Applications.NSharpDoc
 				switch (objProvider.Type.TrimIgnoreNull().ToUpper())
 					{	case "C#":
 								optSourceCode.Checked = true;
-								fnSolution.FileName = Provider.Parameters.GetValue("FileName");
+								fnSolutionCSharp.FileName = Provider.Parameters.GetValue("FileName");
+							break;
+						case "VISUALBASIC":
+								optSourceVisualBasic.Checked = true;
+								fnSolutionVisualBasic.FileName = Provider.Parameters.GetValue("FileName");
 							break;
 						case "SQLSERVER":
 								optDataBase.Checked = true;
@@ -45,6 +47,10 @@ namespace Bau.Applications.NSharpDoc
 								txtUser.Text = Provider.Parameters.GetValue("User");
 								txtPassword.Text = Provider.Parameters.GetValue("Password");
 								txtRepeatPassword.Text = txtPassword.Text;
+							break;
+						case "OLEDB":
+								optOleDB.Checked = true;
+								txtConnectionString.Text = Provider.Parameters.GetValue("ConnectionString");
 							break;
 						case "XMLSTRUCTS":
 								optXMLStructs.Checked = true;
@@ -60,13 +66,17 @@ namespace Bau.Applications.NSharpDoc
 		/// </summary>
 		private void EnableControls()
 		{ // Habilita los controles de C#
-				fnSolution.Enabled = optSourceCode.Checked;
-			// Habilita los controles de base de datos
+				fnSolutionCSharp.Enabled = optSourceCode.Checked;
+			// Habilita los controles de Visual Basic
+				fnSolutionVisualBasic.Enabled = optSourceVisualBasic.Checked;
+			// Habilita los controles de SqlServer
 				txtServer.Enabled = optDataBase.Checked;
 				txtDataBase.Enabled = optDataBase.Checked;
 				txtUser.Enabled = optDataBase.Checked;
 				txtPassword.Enabled = optDataBase.Checked;
 				txtRepeatPassword.Enabled = optDataBase.Checked;
+			// Habilita los controles de OleDB
+				txtConnectionString.Enabled = optOleDB.Checked;
 			// Habilita los controles de estructuras XML
 				fnXMLStructs.Enabled = optXMLStructs.Checked;
 		}
@@ -79,7 +89,13 @@ namespace Bau.Applications.NSharpDoc
 
 				// Comprueba los datos introducidos
 					if (optSourceCode.Checked)
-						{ if (fnSolution.FileName.IsEmpty() || !System.IO.File.Exists(fnSolution.FileName))
+						{ if (fnSolutionCSharp.FileName.IsEmpty() || !System.IO.File.Exists(fnSolutionCSharp.FileName))
+								Bau.Controls.Forms.Helper.ShowMessage(this, "Seleccione un nombre de archivo");
+							else
+								blnValidate = true;
+						}
+					else if (optSourceVisualBasic.Checked)
+						{ if (fnSolutionVisualBasic.FileName.IsEmpty() || !System.IO.File.Exists(fnSolutionVisualBasic.FileName))
 								Bau.Controls.Forms.Helper.ShowMessage(this, "Seleccione un nombre de archivo");
 							else
 								blnValidate = true;
@@ -95,6 +111,12 @@ namespace Bau.Applications.NSharpDoc
 								Bau.Controls.Forms.Helper.ShowMessage(this, "Introduzca la contraseña");
 							else if (txtPassword.Text != txtRepeatPassword.Text)	
 								Bau.Controls.Forms.Helper.ShowMessage(this, "Ambas contraseñas deben ser iguales");
+							else
+								blnValidate = true;
+						}
+					else if (optOleDB.Checked)
+						{ if (txtConnectionString.Text.IsEmpty())
+								Bau.Controls.Forms.Helper.ShowMessage(this, "Introduzca la cadena de conexión");
 							else
 								blnValidate = true;
 						}
@@ -119,7 +141,12 @@ namespace Bau.Applications.NSharpDoc
 						if (optSourceCode.Checked)
 							{ Provider.Type = "C#";
 								Provider.Parameters.Parameters.Clear();
-								Provider.Parameters.Add("FileName", fnSolution.FileName);
+								Provider.Parameters.Add("FileName", fnSolutionCSharp.FileName);
+							}
+						else if (optSourceVisualBasic.Checked)
+							{ Provider.Type = "VisualBasic";
+								Provider.Parameters.Parameters.Clear();
+								Provider.Parameters.Add("FileName", fnSolutionVisualBasic.FileName);
 							}
 						else if (optDataBase.Checked)
 							{ Provider.Type = "SqlServer";
@@ -128,6 +155,11 @@ namespace Bau.Applications.NSharpDoc
 								Provider.Parameters.Add("DataBase", txtDataBase.Text);
 								Provider.Parameters.Add("User", txtUser.Text);
 								Provider.Parameters.Add("Password", txtPassword.Text);
+							}
+						else if (optOleDB.Checked)
+							{ Provider.Type = "OleDB";
+								Provider.Parameters.Parameters.Clear();
+								Provider.Parameters.Add("ConnectionString", txtConnectionString.Text);
 							}
 						else if (optXMLStructs.Checked)
 							{ Provider.Type = "XmlStructs";

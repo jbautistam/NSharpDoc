@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Bau.Libraries.LibHelper.Extensors;
 
-namespace Bau.Libraries.LibRoslynManager.Models.Solutions
+namespace Bau.Libraries.LibNetParser.Common.LibCSharpParser.Models.Solutions
 {
 	/// <summary>
 	///		Colección de <see cref="ProjectVisualStudioModel"/>

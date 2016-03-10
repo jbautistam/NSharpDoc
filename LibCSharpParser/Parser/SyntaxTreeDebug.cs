@@ -3,7 +3,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Bau.Libraries.LibRoslynManager.Parser
+namespace Bau.Libraries.LibCSharpParser.Parser
 {
 	/// <summary>
 	///		Intérprete de nodos

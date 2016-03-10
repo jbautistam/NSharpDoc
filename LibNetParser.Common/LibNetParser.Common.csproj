@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE28E7DC-6E16-468D-9B11-B64BCE7AF327}</ProjectGuid>
+    <ProjectGuid>{9DD947CD-0CF8-4E8F-85DF-F9A51AD37500}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bau.Libraries.LibRoslynManager</RootNamespace>
-    <AssemblyName>LibRoslynManager</AssemblyName>
+    <RootNamespace>Bau.Libraries.LibNetParser.Common</RootNamespace>
+    <AssemblyName>LibNetParser.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -35,44 +35,27 @@
       <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.1.1\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.1.1\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp.Scripting, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Scripting.1.1.1\lib\dotnet\Microsoft.CodeAnalysis.CSharp.Scripting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Scripting, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Scripting.Common.1.1.1\lib\dotnet\Microsoft.CodeAnalysis.Scripting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Testing\RoslynTest\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
+      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Reflection.Metadata, Version=1.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.1.1-beta-23516\lib\dotnet5.2\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProgramParser.cs" />
-    <Compile Include="Parser\FileParser.cs" />
-    <Compile Include="Parser\SyntaxTreeDebug.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AbstractProgramParser.cs" />
     <Compile Include="Models\Solutions\FileVisualStudioModel.cs" />
     <Compile Include="Models\Solutions\FileVisualStudioModelCollection.cs" />
     <Compile Include="Models\Solutions\ProjectVisualStudioModel.cs" />
     <Compile Include="Models\Solutions\ProjectVisualStudioModelCollection.cs" />
     <Compile Include="Models\Solutions\SolutionVisualStudioModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Parser\NetParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibHelper\LibHelper.csproj">
@@ -87,14 +70,18 @@
       <Project>{6f2cfe6b-15a6-48d1-8663-a1248241676f}</Project>
       <Name>LibNSharpDoc.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibSourceCode.Models\LibSourceCode.Models.csproj">
-      <Project>{79076a5c-faea-4609-bdb9-1263bfa71185}</Project>
-      <Name>LibSourceCode.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LibSourceCode.Documenter.Common\LibSourceCode.Documenter.Common.csproj">
       <Project>{a6bad2d5-2767-49df-9fc6-8ae513818b66}</Project>
       <Name>LibSourceCode.Documenter.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibSourceCode.Models\LibSourceCode.Models.csproj">
+      <Project>{79076a5c-faea-4609-bdb9-1263bfa71185}</Project>
+      <Name>LibSourceCode.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

@@ -38,12 +38,8 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.cmdOpen = new System.Windows.Forms.ToolStripButton();
-			this.cmdSave = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.cmdClear = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.cmdSend = new System.Windows.Forms.ToolStripButton();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.lswProviders = new Bau.Controls.List.ListUpdatable();
@@ -54,6 +50,11 @@
 			this.chkShowPublic = new System.Windows.Forms.CheckBox();
 			this.chkShowProtected = new System.Windows.Forms.CheckBox();
 			this.chkShowInternal = new System.Windows.Forms.CheckBox();
+			this.cmdNew = new System.Windows.Forms.ToolStripButton();
+			this.cmdOpen = new System.Windows.Forms.ToolStripButton();
+			this.cmdSave = new System.Windows.Forms.ToolStripButton();
+			this.cmdClear = new System.Windows.Forms.ToolStripButton();
+			this.cmdSend = new System.Windows.Forms.ToolStripButton();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -175,6 +176,7 @@
 			// 
 			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmdNew,
             this.cmdOpen,
             this.cmdSave,
             this.toolStripSeparator1,
@@ -187,55 +189,15 @@
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
-			// cmdOpen
-			// 
-			this.cmdOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.cmdOpen.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.folder;
-			this.cmdOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.cmdOpen.Name = "cmdOpen";
-			this.cmdOpen.Size = new System.Drawing.Size(23, 22);
-			this.cmdOpen.Text = "Abrir";
-			this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
-			// 
-			// cmdSave
-			// 
-			this.cmdSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.cmdSave.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.disk;
-			this.cmdSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.cmdSave.Name = "cmdSave";
-			this.cmdSave.Size = new System.Drawing.Size(23, 22);
-			this.cmdSave.Text = "Grabar";
-			this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
-			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
-			// cmdClear
-			// 
-			this.cmdClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.cmdClear.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.cancel;
-			this.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.cmdClear.Name = "cmdClear";
-			this.cmdClear.Size = new System.Drawing.Size(23, 22);
-			this.cmdClear.Text = "Limpiar";
-			this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
-			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// cmdSend
-			// 
-			this.cmdSend.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.cmdSend.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.world_go;
-			this.cmdSend.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.cmdSend.Name = "cmdSend";
-			this.cmdSend.Size = new System.Drawing.Size(23, 22);
-			this.cmdSend.Text = "Procesar";
-			this.cmdSend.Click += new System.EventHandler(this.cmdSend_Click);
 			// 
 			// tabControl1
 			// 
@@ -374,6 +336,56 @@
 			this.chkShowInternal.Text = "Documentar datos internos";
 			this.chkShowInternal.UseVisualStyleBackColor = true;
 			// 
+			// cmdNew
+			// 
+			this.cmdNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.cmdNew.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.NewItem;
+			this.cmdNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.cmdNew.Name = "cmdNew";
+			this.cmdNew.Size = new System.Drawing.Size(23, 22);
+			this.cmdNew.Text = "Nuevo";
+			this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
+			// 
+			// cmdOpen
+			// 
+			this.cmdOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.cmdOpen.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.folder;
+			this.cmdOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.cmdOpen.Name = "cmdOpen";
+			this.cmdOpen.Size = new System.Drawing.Size(23, 22);
+			this.cmdOpen.Text = "Abrir";
+			this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
+			// 
+			// cmdSave
+			// 
+			this.cmdSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.cmdSave.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.disk;
+			this.cmdSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.cmdSave.Name = "cmdSave";
+			this.cmdSave.Size = new System.Drawing.Size(23, 22);
+			this.cmdSave.Text = "Grabar";
+			this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
+			// 
+			// cmdClear
+			// 
+			this.cmdClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.cmdClear.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.cancel;
+			this.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.cmdClear.Name = "cmdClear";
+			this.cmdClear.Size = new System.Drawing.Size(23, 22);
+			this.cmdClear.Text = "Limpiar";
+			this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
+			// 
+			// cmdSend
+			// 
+			this.cmdSend.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.cmdSend.Image = global::Bau.Applications.NSharpDoc.Properties.Resources.world_go;
+			this.cmdSend.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.cmdSend.Name = "cmdSend";
+			this.cmdSend.Size = new System.Drawing.Size(23, 22);
+			this.cmdSend.Text = "Procesar";
+			this.cmdSend.Click += new System.EventHandler(this.cmdSend_Click);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -427,6 +439,7 @@
 		private System.Windows.Forms.CheckBox chkShowPublic;
 		private System.Windows.Forms.CheckBox chkShowProtected;
 		private System.Windows.Forms.CheckBox chkShowInternal;
+		private System.Windows.Forms.ToolStripButton cmdNew;
 	}
 }
 

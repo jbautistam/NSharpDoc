@@ -74,13 +74,25 @@
       <Project>{cb50d1d9-55e4-4a2b-8ec7-0adde8d7e3bd}</Project>
       <Name>LibMarkupLanguage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibOleDB.Documenter\LibOleDB.Documenter.csproj">
+      <Project>{a5e1b9c2-423f-485d-9280-099828cd61c9}</Project>
+      <Name>LibOleDB.Documenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibSqlServer.Documenter\LibSqlServer.Documenter.csproj">
       <Project>{a5efd154-72cb-4e57-8927-fd0bdee13999}</Project>
       <Name>LibSqlServer.Documenter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LibRoslynManager\LibRoslynManager.csproj">
-      <Project>{de28e7dc-6e16-468d-9b11-b64bce7af327}</Project>
-      <Name>LibRoslynManager</Name>
+    <ProjectReference Include="..\LibCSharpParser\LibCSharpParser.csproj">
+      <Project>{54094c0b-b639-4a66-a3e4-d745aadc26ff}</Project>
+      <Name>LibCSharpParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibNetParser.Common\LibNetParser.Common.csproj">
+      <Project>{9dd947cd-0cf8-4e8f-85df-f9a51ad37500}</Project>
+      <Name>LibNetParser.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibVisualBasicParser\LibVisualBasicParser.csproj">
+      <Project>{5d12ff7a-fd99-4b83-8a95-a9b7e15fc402}</Project>
+      <Name>LibVisualBasicParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\LibXMLStructs.Documenter\LibXMLStructs.Documenter.csproj">
       <Project>{6d46307a-a043-41eb-9877-ffd0800cc404}</Project>
@@ -91,7 +103,9 @@
       <Name>LibNSharpDoc.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

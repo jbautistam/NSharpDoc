@@ -100,6 +100,11 @@ namespace Bau.Libraries.LibSourceCode.Models.CompilerSymbols.Base
 		}
 
 		/// <summary>
+		///		Ensamblado en el que se define la estructura
+		/// </summary>
+		public string Assembly { get; set; }
+
+		/// <summary>
 		///		Tipo de estructura
 		/// </summary>
 		public StructType IDType { get; }
@@ -113,6 +118,11 @@ namespace Bau.Libraries.LibSourceCode.Models.CompilerSymbols.Base
 		///		Modificador del elemento
 		/// </summary>
 		public ModifierType Modifier { get; set; }
+
+		/// <summary>
+		///		Atributos asociados al elemento
+		/// </summary>
+		public System.Collections.Generic.List<AttributeModel> Attributes { get; } = new System.Collections.Generic.List<AttributeModel>();
 
 		/// <summary>
 		///		Comentarios XML
