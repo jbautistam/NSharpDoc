@@ -8,4 +8,4 @@ En el futuro, esperamos añadir otros lenguajes de programación así como otros
 
 Nota: la versión actual de **NSharpDoc** es la 0.5. Aún está en las fases iniciales de desarrollo y ciertas funcionalidades no están completamente terminadas como la documentación adicional de proyectos. Se ha liberado para recibir comentarios de la comunidad y mostrar el trabajo que se está realizando. Lo mismo ocurre con esta documentación, se irá modificando a medida que se vaya avanzando con el desarrollo.
 
-Más información en [mi web](http://ant2e6.webs-interesantes.es/Aplicaciones/NSharpDoc/NSharpDoc.htm)
+Más información en [mi web](http://ant2e6.webs-interesantes.es/Aplicaciones/NSharpDoc/NSharpDoc.htm) o en la [Wiki](https://github.com/jbautistam/NSharpDoc/wiki) (aún en construcción).
