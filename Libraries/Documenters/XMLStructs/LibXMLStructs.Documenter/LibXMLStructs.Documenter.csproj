@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bau.Libraries.LibXMLStructs.Documenter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bau.Libraries.LibHelper" Version="1.0.1" />
+    <PackageReference Include="Bau.Libraries.LibMarkup" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\LibNSharpDoc\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
+  </ItemGroup>
+
+</Project>

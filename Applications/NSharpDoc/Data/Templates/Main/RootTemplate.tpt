@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page>
+	<![CDATA[
+		<html lang="es">
+			<head>
+				<title>{{Title}}</title>
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+							integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+				<link rel="stylesheet" href="Styles/layout.css" >
+				<!--
+				<link rel="stylesheet" href="Styles/prettify.css" >
+				-->
+				<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&amp;skin=sunburst&amp;lang=css" defer=""></script>
+				<!--
+				<script async src="Scripts/lang-sql.js"></script>
+				-->
+			</head>
+			<body>
+				<div class="container">
+					{{Body}}
+				</div>
+				<footer class = "container" >
+					<nav>
+						<ul class="pager">
+							<li><a href="Index.htm">Indice</a></li>
+							<li>{{TopPage}}</li>
+						</ul>
+					</nav>
+					<div class="alert alert-success" role="alert">
+						<p>
+							Documentación generada con <a href="https://github.com/jbautistam/NSharpDoc">NSharpDoc</a>
+						</p>
+					</div>
+				</footer>
+			</body>
+		</html>
+	]]>
+</Page>

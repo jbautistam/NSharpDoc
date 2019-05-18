@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bau.Libraries.LibDatabaseDocumenter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bau.Libraries.LibDbProviders.Base" Version="1.0.0" />
+    <PackageReference Include="Bau.Libraries.LibDbProviders.Odbc" Version="1.0.0" />
+    <PackageReference Include="Bau.Libraries.LibDbProviders.SqlServer" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\LibNSharpDoc\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
+  </ItemGroup>
+
+</Project>

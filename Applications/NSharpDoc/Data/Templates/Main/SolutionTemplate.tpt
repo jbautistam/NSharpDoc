@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1 class="panel-title">Solución {{Name}}</h1>
+		</div>
+		<div class="panel-body">
+			<ul>
+				<ForEach StructType ="Program">
+					<li>{{Name|Link}}</li>
+				</ForEach>
+			</ul>
+		</div>
+	</div>
+</Page>

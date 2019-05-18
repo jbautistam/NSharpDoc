@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bau.Libraries.LibSourceCode.Documenter.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\LibNSharpDoc\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
+    <ProjectReference Include="..\LibSourceCode.Documenter.Models\LibSourceCode.Documenter.Models.csproj" />
+  </ItemGroup>
+
+</Project>

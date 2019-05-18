@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page>
+	<IfValue ValueType="Summary">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h1 class="panel-title">{{Name}}</h1>
+			</div>
+			<div class="panel-body">
+				<p>{{Summary}}</p>
+			</div>
+		</div>
+	</IfValue>
+
+	<IfValue ValueType="Content">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Contenido</h3>
+			</div>
+			<div class="panel-body">
+				<p>{{Content}}</p>
+			</div>
+		</div>
+	</IfValue>
+
+	<IfValue ValueType="SeeAlso">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Vea también</h3>
+			</div>
+			<div class="panel-body">
+				<p>{{SeeAlso}}</p>
+			</div>
+		</div>
+	</IfValue>
+
+	<IfExists StructType = "AdditionalPage">
+		<hr/>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Páginas</h3>
+			</div>
+			<div class="panel-body">
+				<ul>
+					<ForEach StructType = "AdditionalPage">
+						<li>{{Name|Link}}</li>
+					</ForEach>
+				</ul>
+			</div>
+		</div>
+	</IfExists>
+</Page>

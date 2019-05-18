@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Bau.Libraries.LibNSharpDoc.Processor</RootNamespace>
+    <AssemblyName>LibNSharpDoc.Processor</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bau.Libraries.LibHelper" Version="1.0.1" />
+    <PackageReference Include="Bau.Libraries.LibMarkup" Version="1.0.0" />
+    <PackageReference Include="Markdig" Version="0.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Documenters\DataBase\LibDatabaseDocumenter\LibDatabaseDocumenter.csproj" />
+    <ProjectReference Include="..\..\Documenters\HelpPages\LibHelpPages.Documenter\LibHelpPages.Documenter.csproj" />
+    <ProjectReference Include="..\..\Documenters\SourceCode\Net\LibNetParser\LibNetParser.csproj" />
+    <ProjectReference Include="..\..\Documenters\XMLStructs\LibXMLStructs.Documenter\LibXMLStructs.Documenter.csproj" />
+    <ProjectReference Include="..\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
+  </ItemGroup>
+
+</Project>

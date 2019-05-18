@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1 class="panel-title">{{StructType}} {{Name}}</h1>
+		</div>
+		<IfValue ValueType="Summary">
+			<div class="bs-callout bs-callout-info">
+				<p>{{Summary}}</p>
+			</div>
+		</IfValue>
+		<IfValue ValueType="Remarks">
+			<div class="panel-body">
+				{{Remarks|Markdown}}
+			</div>
+		</IfValue>
+	</div>
+
+	<IfValue ValueType="Prototype">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Definición</h3>
+			</div>
+			<div class="panel-body">
+				<pre class="prettyprint linenums lang-sql">
+					<code class="language-sql">
+						{{Prototype}}
+					</code>
+				</pre>
+			</div>
+		</div>
+	</IfValue>
+</Page>
