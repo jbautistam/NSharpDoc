@@ -31,9 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibSourceCode.Documenter.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibSourceCode.Documenter.Models", "Libraries\Documenters\SourceCode\LibSourceCode.Documenter.Models\LibSourceCode.Documenter.Models.csproj", "{5579AC4A-CF65-4BF1-9549-E6037B94E9D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibNSharpDoc.Models", "Libraries\LibNSharpDoc\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj", "{81E8EAEB-FA26-47DD-A5CC-63F8EAFED7F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibNSharpDoc.Models", "Libraries\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj", "{81E8EAEB-FA26-47DD-A5CC-63F8EAFED7F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibNSharpDoc.Processor", "Libraries\LibNSharpDoc\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj", "{5D360AE6-B1FE-45CB-B2F7-05E48D07A47C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibNSharpDoc.Processor", "Libraries\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj", "{5D360AE6-B1FE-45CB-B2F7-05E48D07A47C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSharpDocCompiler", "Applications\NSharpDocCompiler\NSharpDocCompiler.csproj", "{1DA22EA8-523B-4519-9E0D-F648660D77E2}"
 EndProject

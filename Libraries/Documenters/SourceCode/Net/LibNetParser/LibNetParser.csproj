@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
     <ProjectReference Include="..\..\LibSourceCode.Documenter.Common\LibSourceCode.Documenter.Common.csproj" />
     <ProjectReference Include="..\..\LibSourceCode.Documenter.Models\LibSourceCode.Documenter.Models.csproj" />
   </ItemGroup>

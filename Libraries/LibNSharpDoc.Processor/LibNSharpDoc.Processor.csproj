@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Documenters\DataBase\LibDatabaseDocumenter\LibDatabaseDocumenter.csproj" />
-    <ProjectReference Include="..\..\Documenters\HelpPages\LibHelpPages.Documenter\LibHelpPages.Documenter.csproj" />
-    <ProjectReference Include="..\..\Documenters\SourceCode\Net\LibNetParser\LibNetParser.csproj" />
-    <ProjectReference Include="..\..\Documenters\XMLStructs\LibXMLStructs.Documenter\LibXMLStructs.Documenter.csproj" />
+    <ProjectReference Include="..\Documenters\DataBase\LibDatabaseDocumenter\LibDatabaseDocumenter.csproj" />
+    <ProjectReference Include="..\Documenters\HelpPages\LibHelpPages.Documenter\LibHelpPages.Documenter.csproj" />
+    <ProjectReference Include="..\Documenters\SourceCode\Net\LibNetParser\LibNetParser.csproj" />
+    <ProjectReference Include="..\Documenters\XMLStructs\LibXMLStructs.Documenter\LibXMLStructs.Documenter.csproj" />
     <ProjectReference Include="..\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj" />
   </ItemGroup>
 

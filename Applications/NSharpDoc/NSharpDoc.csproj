@@ -183,11 +183,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\LibNSharpDoc\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj">
+    <ProjectReference Include="..\..\Libraries\LibNSharpDoc.Models\LibNSharpDoc.Models.csproj">
       <Project>{81e8eaeb-fa26-47dd-a5cc-63f8eafed7f1}</Project>
       <Name>LibNSharpDoc.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\LibNSharpDoc\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj">
+    <ProjectReference Include="..\..\Libraries\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj">
       <Project>{5d360ae6-b1fe-45cb-b2f7-05e48d07a47c}</Project>
       <Name>LibNSharpDoc.Processor</Name>
     </ProjectReference>

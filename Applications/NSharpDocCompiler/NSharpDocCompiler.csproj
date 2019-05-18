@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\LibNSharpDoc\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj" />
+    <ProjectReference Include="..\..\Libraries\LibNSharpDoc.Processor\LibNSharpDoc.Processor.csproj" />
   </ItemGroup>
 
 </Project>
